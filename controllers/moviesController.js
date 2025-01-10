@@ -41,6 +41,7 @@ function show(req, res) {
       });
     }
     const [movie] = results;
+    movie.image = generateMovieImagePath(movie.image);
 
     res.json({
       status: "ok",
