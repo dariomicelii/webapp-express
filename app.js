@@ -9,7 +9,7 @@ app.use(express.static("public"));
 
 //* REGISTRAZIONE ROTTE
 const moviesRouter = require("./routers/moviesRouter");
-app.use("/movies", moviesRouter);
+app.use("/api/movies", moviesRouter);
 
 //* ERRORS HANDLER
 const notFound = require("./middlewares/notFound");
