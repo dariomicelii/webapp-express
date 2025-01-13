@@ -41,11 +41,35 @@ function show(req, res) {
       });
     }
     const [movie] = results;
+
+    if (!movie) {
+      return res.status(404).json({
+        status: "ko",
+        message: "Movie not found",
+      });
+    }
+
     movie.image = generateMovieImagePath(movie.image);
 
-    res.json({
-      status: "ok",
-      movie,
+    const sqlRewies = `
+    SELECT id, name, vote, text
+    FROM reviews
+    WHERE movie_id = ?`;
+
+    connection.query(sqlRewies, [movieId], (err, results) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).json({
+          status: "ko",
+          message: "Database query failed",
+        });
+      }
+      movie.reviews = results;
+
+      res.json({
+        status: "ok",
+        movie,
+      });
     });
   });
 }
