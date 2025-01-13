@@ -1,11 +1,19 @@
 //* INIZIALIZZAZIONE EXPRESS
 const express = require("express");
 const app = express();
-const { APP_HOST, APP_PORT } = process.env;
+const cors = require("cors");
+const { APP_HOST, APP_PORT, APP_FRONTEND_URL } = process.env;
+
+//* CONFIGURAZIONE CORS
+var corsOptions = {
+  origin: APP_FRONTEND_URL,
+  optionSuccessStatus: 200,
+};
 
 //* REGISTRAZIONE MIDDLEWARES
 app.use(express.json());
 app.use(express.static("public"));
+app.use(cors(corsOptions));
 
 //* REGISTRAZIONE ROTTE
 const moviesRouter = require("./routers/moviesRouter");
