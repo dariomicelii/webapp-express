@@ -14,7 +14,7 @@ function index(req, res) {
     }
     const movies = results.map((movie) => ({
       ...movie,
-      image: generateMovieImagePath(),
+      image: generateMovieImagePath(movie.image),
     }));
 
     console.log(results);
